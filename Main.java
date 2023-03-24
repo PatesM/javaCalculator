@@ -34,8 +34,12 @@ public class Main {
     input = userInput.nextLine().replaceAll("[-+*/]", " $0 ").replace("  ", " ").trim();
     String[] elements = input.split(" ");
 
-    double a = Double.parseDouble(elements[0]);
-    double b = Double.parseDouble(elements[2]);
+    if(elements[0].contains(".") | elements[2].contains(".")) {
+      throw new NumberFormatException("Please enter a valid value");
+    }
+
+    int a = Integer.parseInt(elements[0]);
+    int b = Integer.parseInt(elements[2]);
     char operation = elements[1].charAt(0);
 
     /*
@@ -44,7 +48,7 @@ public class Main {
     boolean allowableA = Arrays.stream(allowedValues)
         .boxed()
         .collect(Collectors.toSet())
-        .contains((int) a);
+        .contains(a);
 
     /*
     Checking the valid value of a variable 'b'
@@ -52,9 +56,9 @@ public class Main {
     boolean allowableB = Arrays.stream(allowedValues)
         .boxed()
         .collect(Collectors.toSet())
-        .contains((int) b);
+        .contains(b);
 
-    if (a < 1 | a > 10 | b < 1 | b > 10) {
+    if (a < 1 | a > 10 | b < 1 | b > 10 ) {
       throw new ArithmeticException("Please enter a valid value");
     }
 
@@ -68,19 +72,19 @@ public class Main {
     if (allowableA & allowableB) {
         switch (elements[1]) {
             case "+" -> {
-                int result = (int) a + (int) b;
+                int result = a + b;
                 return Integer.toString(result);
             }
             case "-" -> {
-                int result = (int) a - (int) b;
+                int result = a - b;
                 return Integer.toString(result);
             }
             case "*" -> {
-                int result = (int) a * (int) b;
+                int result = a * b;
                 return Integer.toString(result);
             }
             case "/" -> {
-                int result = (int) a / (int) b;
+                int result = a / b;
                 return Integer.toString(result);
             }
         }
