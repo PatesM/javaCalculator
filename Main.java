@@ -33,8 +33,11 @@ public class Main {
      */
     input = userInput.nextLine().replaceAll("[-+*/]", " $0 ").replace("  ", " ").trim();
     String[] elements = input.split(" ");
+    if (elements.length != 3) {
+      throw new IllegalArgumentException("Please enter a valid value");
+    }
 
-    if(elements[0].contains(".") | elements[2].contains(".")) {
+    if (elements[0].contains(".") | elements[2].contains(".")) {
       throw new NumberFormatException("Please enter a valid value");
     }
 
@@ -58,10 +61,6 @@ public class Main {
         .collect(Collectors.toSet())
         .contains(b);
 
-    if (a < 1 | a > 10 | b < 1 | b > 10 ) {
-      throw new ArithmeticException("Please enter a valid value");
-    }
-
     if (operation != '+' && operation != '-' && operation != '*' && operation != '/') {
       throw new ArithmeticException("Please enter a valid operation");
     }
@@ -69,27 +68,18 @@ public class Main {
     /*
     Result calculation
      */
+    int result = 0;
     if (allowableA & allowableB) {
-        switch (elements[1]) {
-            case "+" -> {
-                int result = a + b;
-                return Integer.toString(result);
-            }
-            case "-" -> {
-                int result = a - b;
-                return Integer.toString(result);
-            }
-            case "*" -> {
-                int result = a * b;
-                return Integer.toString(result);
-            }
-            case "/" -> {
-                int result = a / b;
-                return Integer.toString(result);
-            }
-        }
+      switch (elements[1]) {
+        case "+" -> result = a + b;
+        case "-" -> result = a - b;
+        case "*" -> result = a * b;
+        case "/" -> result = a / b;
+      }
+    } else {
+      throw new ArithmeticException("Please enter a valid value");
     }
-    return "Something went wrong";
+    return Integer.toString(result);
   }
 
   public static void main(String[] args) {
